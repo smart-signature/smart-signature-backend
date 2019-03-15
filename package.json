@@ -8,10 +8,12 @@
   },
   "dependencies": {
     "egg": "^2.15.1",
+    "egg-cors": "^2.2.0",
     "egg-mysql": "^3.0.0",
     "egg-scripts": "^2.11.0",
     "eosjs": "^16.0.9",
-    "ipfs-mini": "^1.1.5"
+    "ipfs-mini": "^1.1.5",
+    "moment": "^2.24.0"
   },
   "devDependencies": {
     "autod": "^3.0.1",

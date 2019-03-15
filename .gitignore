@@ -13,3 +13,5 @@ run/
 typings/
 .nyc_output/
 config/config.default.js
+push.sh
+dist/

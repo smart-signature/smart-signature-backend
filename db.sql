@@ -101,17 +101,21 @@ eos_auths
 -- 文章列表
 CREATE TABLE posts(
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  username varchar(100), 
   author varchar(100), 
   title varchar(100),
   short_content varchar(255), 
   hash varchar(100), 
-  sign varchar(100), 
+  sign varchar(255), 
   public_key varchar(100), 
   status INT UNSIGNED  DEFAULT 0, 
+  onchain_status INT UNSIGNED  DEFAULT 0, 
   create_time timestamp,
   PRIMARY KEY (id),
   UNIQUE (hash)
 );
+
+drop table posts;
 
 
 insert into posts values(null, "joetothemoon", "title test1111", "short_content111","hash 11111", "sign1111", "public_key1111", 0 , now());

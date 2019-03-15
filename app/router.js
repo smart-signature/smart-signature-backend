@@ -6,6 +6,8 @@
 module.exports = app => {
   const { router, controller } = app;
 
+  router.get('/', controller.home.index);
+
   // 发布文章
   router.post('/publish', controller.post.publish);
 
@@ -23,11 +25,11 @@ module.exports = app => {
 
 
   // ipfs service
-  router.post('/ipfs/add', controller.ipfs.add);
-  router.post('/ipfs/addJSON', controller.ipfs.addJSON);
+  // router.post('/ipfs/add', controller.ipfs.add);
+  // router.post('/ipfs/addJSON', controller.ipfs.addJSON);
 
-  router.get('/ipfs/cat/:hash', controller.ipfs.cat);
-  router.get('/ipfs/catJSON/:hash', controller.ipfs.catJSON);
+  // router.get('/ipfs/cat/:hash', controller.ipfs.cat);
+  // router.get('/ipfs/catJSON/:hash', controller.ipfs.catJSON);
 
 };
 

@@ -53,7 +53,6 @@ hash: 文章的唯一hash
 curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST http://127.0.0.1:7001/vote
 
 
-
 #### IPFS add
 
 * POST /ipfs/add

@@ -1,15 +1,15 @@
 version: "2"
 services:
-  ipfs:
-    restart: always
-    image: ipfs/go-ipfs
-    hostname: "{{.Service.Name}}-{{.Task.Slot}}"
-    volumes:
-      - ~/ipfs-data-volumes:/data/ipfs
-    networks:
-      overlay:
-        aliases:
-          - ipfs
+  # ipfs:
+  #   restart: always
+  #   image: ipfs/go-ipfs
+  #   hostname: "{{.Service.Name}}-{{.Task.Slot}}"
+  #   volumes:
+  #     - ~/ipfs-data-volumes:/data/ipfs
+  #   networks:
+  #     overlay:
+  #       aliases:
+  #         - ipfs
   app:
     restart: always
     build: .
@@ -19,7 +19,7 @@ services:
     volumes:
       - ~/config.default.js:/usr/src/app/config/config.default.js
     ports:
-      - 7001:7001
+      - 7654:7001
     networks:
       overlay:
   # app:

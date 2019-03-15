@@ -4,6 +4,7 @@ const Controller = require('egg').Controller;
 
 const EOS = require('eosjs');
 const ecc = require('eosjs-ecc');
+const moment = require('moment');
 
 class PostController extends Controller {
 
@@ -20,11 +21,9 @@ class PostController extends Controller {
 
     async publish() {
         const ctx = this.ctx;
-        const { author = '', title = '', content = '', publickey, sign, hash} = ctx.request.body;
+        const { author = '', title = '', content = '', publickey, sign, hash, username} = ctx.request.body;
 
-        ctx.logger.info('debug info', author, title, content, publickey, sign);
-
-        ctx.status = 201;
+        ctx.logger.info('debug info', author, title, content, publickey, sign, username);
 
         // TODO check auth 
         // accessToken = userid + username + data + salt
@@ -50,57 +49,35 @@ class PostController extends Controller {
             return;
         }
 
+        var now = moment().format('YYYY-MM-DD HH:mm:ss');
+
         try {
             const result = await this.app.mysql.insert('posts', {
                 author: author,
+                username: username,
                 title: title,
                 public_key: publickey,
                 sign: sign,
                 hash: hash,
-                create_time: this.app.mysql.literals.now
+                create_time: now
             });
 
             const updateSuccess = result.affectedRows === 1;
 
             if (updateSuccess) {
-                // 调用 contract action
-                // TODO 合约修改后，这里的data参数要改
-                var actions = [];
+                ctx.logger.info(`publish success ..`);
 
-                actions.push(
-                    {
-                        account: 'signature.bp',
-                        name: 'publish',
-                        authorization: [{
-                            actor: 'signature.bp',
-                            permission: 'active'
-                        }],
-                        data: {
-                            "from": "signature.bp",
-                            "fission_factor": 2000,
-                        }
-                    }
-                );
-
-                this.eosClient.transaction({
-                    actions: actions
-                }).then(data => {
-                    ctx.logger.info(`publish success ..`);
-
-                    ctx.body = {
-                        msg: "success"
-                    };
-                    ctx.status = 201;
-                }).catch(err => {
-                    ctx.logger.error("publish err", err);
-
-                    ctx.body = {
-                        msg: "publish fail"
-                    };
-                    ctx.status = 500;
-                })
+                ctx.body = {
+                    msg: "success"
+                };
+                ctx.status = 201;
 
             } else {
+                ctx.logger.error("publish err", err);
+
+                ctx.body = {
+                    msg: "publish fail"
+                };
                 ctx.status = 500;
             }
 
@@ -122,7 +99,7 @@ class PostController extends Controller {
         const results = await this.app.mysql.select('posts', { // 搜索 post 表
             // where: { status: 0, author: ['author1', 'author2'] }, // WHERE 条件
             where: { status: 0 }, // WHERE 条件
-            columns: ['author',  'title', 'short_content','hash', 'create_time'], // 要查询的表字段
+            columns: ['author', 'title', 'short_content', 'hash', 'create_time'], // 要查询的表字段
             orders: [['create_time', 'desc']], // 排序方式
             limit: pagesize, // 返回数据量
             offset: (page - 1) * pagesize, // 数据偏移量
@@ -133,3 +110,8 @@ class PostController extends Controller {
 }
 
 module.exports = PostController;
+
+
+
+
+
