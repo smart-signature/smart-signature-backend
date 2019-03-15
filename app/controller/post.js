@@ -107,6 +107,23 @@ class PostController extends Controller {
 
         this.ctx.body = results;
     }
+
+    async post() {
+        const ctx = this.ctx;
+        const hash = ctx.params.hash;
+
+        const post = await this.app.mysql.get('posts', { hash: hash });
+
+        if (post) {
+            ctx.body = post;
+            ctx.status = 200;
+        } else {
+            ctx.body = {
+                msg: "post not found"
+            };
+            ctx.status = 404;
+        }
+    }
 }
 
 module.exports = PostController;

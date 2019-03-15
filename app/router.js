@@ -14,6 +14,9 @@ module.exports = app => {
   // 文章列表
   router.get('/posts', controller.post.posts);
 
+  // 单篇文章
+  router.get('/post/:hash', controller.post.post);
+
   // 获取用户信息
   router.get('/user/:id', controller.user.user);
 

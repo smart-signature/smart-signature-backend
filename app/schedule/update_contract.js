@@ -55,7 +55,7 @@ class UpdateContract extends Subscription {
                         }],
                         data: {
                             "sign": {
-                                id: 0,
+                                id: post.id,
                                 author: post.username,
                                 // author: "signature.bp",
                                 fission_factor: 2000,
