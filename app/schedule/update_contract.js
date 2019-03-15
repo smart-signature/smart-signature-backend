@@ -48,7 +48,7 @@ class UpdateContract extends Subscription {
                 actions.push(
                     {
                         account: 'signature.bp',
-                        name: 'syspublish',
+                        name: 'publish',
                         authorization: [{
                             actor: 'signature.bp',
                             permission: 'active'
