@@ -60,7 +60,7 @@ module.exports = appInfo => {
 
   config.security = {
     // TODO: reset in production
-    domainWhiteList: ['localhost:8080', 'ss-web.starling.team', '.ngrok.io', '192.168.0.102:8080'],
+    domainWhiteList: ['localhost:8080', 'ss-web.starling.team', '.ngrok.io', '192.168.0.102:8080', 'sign-dev.dravatar.xyz'],
     csrf: {
       enable: false,
     },

@@ -29,8 +29,15 @@ class PostController extends Controller {
         // accessToken = userid + username + data + salt
 
         // check signature
+        const hash_piece1 = hash.slice(0, 12);
+        const hash_piece2 = hash.slice(12, 24);
+        const hash_piece3 = hash.slice(24, 36);
+        const hash_piece4 = hash.slice(36, 48);
+
+        const sign_data = `${author} ${hash_piece1} ${hash_piece2} ${hash_piece3} ${hash_piece4}`;
+
         try {
-            var recover = ecc.recover(sign, `${author} ${hash}`);
+            var recover = ecc.recover(sign, sign_data);
             ctx.logger.info("recover", recover);
             if (recover !== publickey) {
                 ctx.body = {
