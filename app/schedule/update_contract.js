@@ -58,7 +58,7 @@ class UpdateContract extends Subscription {
                                 id: post.id,
                                 author: post.username,
                                 // author: "signature.bp",
-                                fission_factor: 2000,
+                                fission_factor: post.fission_factor,
                                 ipfs_hash: post.hash,
                                 public_key: post.public_key,
                                 signature: post.sign

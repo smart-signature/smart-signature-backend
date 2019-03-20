@@ -21,7 +21,7 @@ class PostController extends Controller {
 
     async publish() {
         const ctx = this.ctx;
-        const { author = '', title = '', content = '', publickey, sign, hash, username} = ctx.request.body;
+        const { author = '', title = '', content = '', publickey, sign, hash, username, fission_factor = 2000} = ctx.request.body;
 
         ctx.logger.info('debug info', author, title, content, publickey, sign, username);
 
@@ -66,6 +66,7 @@ class PostController extends Controller {
                 public_key: publickey,
                 sign: sign,
                 hash: hash,
+                fission_factor: fission_factor,
                 create_time: now
             });
 
@@ -120,6 +121,9 @@ class PostController extends Controller {
         const hash = ctx.params.hash;
 
         const post = await this.app.mysql.get('posts', { hash: hash });
+        
+        // TODO 阅读次数
+        // const reads = await this.app.mysql.get('reads', { hash: hash });
 
         if (post) {
             ctx.body = post;
