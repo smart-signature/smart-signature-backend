@@ -10,6 +10,9 @@ class HomeController extends Controller {
   async home() {
     const ctx = this.ctx;
 
+    console.log(ctx.cookies.get('remember'));
+
+
     if (ctx.cookies.get('remember')) {
       ctx.body = '<p>Remembered :). Click to <a href="/forget">forget</a>!.</p>';
       return;
@@ -18,6 +21,17 @@ class HomeController extends Controller {
     ctx.body = `<form method="post" action="/remember"><p>Check to <label>
       <input type="checkbox" name="remember"/> remember me</label>
       <input type="submit" value="Submit"/>.</p></form>`;
+  }
+
+  async login() {
+    // 1. 传一个签名过来，
+
+    // 2. 验证签名
+
+    // 3. 生成 accessToken
+
+    // accessToken =  username + date + salt， (JWT format)
+    console.log('');
   }
 
   async forget() {
@@ -32,7 +46,7 @@ class HomeController extends Controller {
 
     const minute = 60000;
     if (ctx.request.body.remember) {
-      ctx.cookies.set('remember', "xxxxxxxxx", { maxAge: minute });
+      ctx.cookies.set('remember', 'xxxxxxxxx', { maxAge: minute });
     }
     ctx.redirect('/');
   }

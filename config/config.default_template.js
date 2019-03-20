@@ -32,35 +32,35 @@ module.exports = appInfo => {
         // ca: fs.readFileSync(__dirname + '/certs/ca.pem'),
         // key: fs.readFileSync(__dirname + '/certs/client-key.pem'),
         // cert: fs.readFileSync(__dirname + '/certs/client-cert.pem')
-      }
+      },
     },
     // 是否加载到 app 上，默认开启
     app: true,
     // 是否加载到 agent 上，默认关闭
     agent: false,
-  }
+  };
 
   config.eos = {
-    // local  testnet config 
-    httpEndpoint : "http://127.0.0.1:8888",
-    chainId : "cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f",
-    keyProvider : "private_key",
+    // local  testnet config
+    httpEndpoint: 'http://127.0.0.1:8888',
+    chainId: 'cf057bbfb72640471fd910bcb67639c22df9f92470936cddc1ade0e2f2e7dc4f',
+    keyProvider: 'private_key',
 
-  }
+  };
 
   config.mail = {
     host: 'xxx',
     port: 465,
     secure: true,
     auth: {
-      user: "xxx",
-      pass: "xxx"
-    }
-  }
+      user: 'xxx',
+      pass: 'xxx',
+    },
+  };
 
   config.security = {
     // TODO: reset in production
-    domainWhiteList: ['localhost:8080', 'ss-web.starling.team', '.ngrok.io', '192.168.0.102:8080', 'sign-dev.dravatar.xyz'],
+    domainWhiteList: [ 'localhost:8080', 'ss-web.starling.team', '.ngrok.io', '192.168.0.102:8080', 'sign-dev.dravatar.xyz' ],
     csrf: {
       enable: false,
     },
@@ -72,5 +72,4 @@ module.exports = appInfo => {
 
   return config;
 };
-
 

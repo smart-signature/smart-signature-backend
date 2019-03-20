@@ -115,6 +115,9 @@ CREATE TABLE posts(
   UNIQUE (hash)
 );
 
+ALTER TABLE posts ADD COLUMN fission_factor INT DEFAULT 2000;
+
+
 drop table posts;
 
 

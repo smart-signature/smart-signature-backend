@@ -26,7 +26,7 @@ module.exports = app => {
   // 打赏
   router.post('/vote', controller.vote.vote);
 
-  // ipfs service 
+  // ipfs service
   // router.post('/ipfs/add', controller.ipfs.add);
   // router.post('/ipfs/addJSON', controller.ipfs.addJSON);
 
@@ -37,10 +37,6 @@ module.exports = app => {
   app.router.post('/follow', app.controller.follow.follow);
   app.router.post('/unfollow', app.controller.follow.unfollow);
 
-  // auth
-  app.router.get('/home', app.controller.home.home);
-  app.router.get('/forget', app.controller.home.forget);
-  app.router.post('/remember', app.controller.home.remember);
-
+ 
 };
 
