@@ -23,7 +23,7 @@ class UpdateContract extends Subscription {
 
   async subscribe() {
 
-    this.ctx.logger.info('sync contract..');
+    // this.ctx.logger.info('sync contract..');
 
     // this.eosClient.getAccount("joetothemoon", (error, result) => {
     //     this.ctx.logger.info('sync contract..', result);
@@ -56,7 +56,7 @@ class UpdateContract extends Subscription {
             data: {
               sign: {
                 id: post.id,
-                author: post.username,
+                author: post.username || post.author,
                 // author: "signature.bp",
                 fission_factor: post.fission_factor,
                 ipfs_hash: post.hash,
@@ -88,7 +88,7 @@ class UpdateContract extends Subscription {
         this.ctx.logger.info('sync err..', err);
       });
     } else {
-      this.ctx.logger.info('new posts need to sync to contract..', results.length);
+      // this.ctx.logger.info('new posts need to sync to contract..', results.length);
     }
 
 

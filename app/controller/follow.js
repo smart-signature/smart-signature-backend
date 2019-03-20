@@ -2,7 +2,7 @@
 
 const Controller = require('egg').Controller;
 const moment = require('moment');
-
+const jwt = require('jwt-simple');
 
 class FollowController extends Controller {
 
@@ -11,9 +11,11 @@ class FollowController extends Controller {
 
     const { username = '', followed = '' } = ctx.request.body;
 
-    if (!this.hasAuth(username)) {
+    try {
+      this.checkAuth(username);
+    } catch (err) {
       ctx.status = 401;
-      ctx.body = 'no auth';
+      ctx.body = err.message;
       return;
     }
 
@@ -22,7 +24,7 @@ class FollowController extends Controller {
 
       const result = await this.app.mysql.query(
         'INSERT INTO follows VALUES (null, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE status = 1',
-        [ username, followed, 1, now ]
+        [username, followed, 1, now]
       );
 
       const updateSuccess = result.affectedRows >= 1;
@@ -46,9 +48,11 @@ class FollowController extends Controller {
 
     const { username = '', followed = '' } = ctx.request.body;
 
-    if (!this.hasAuth(username)) {
+    try {
+      this.checkAuth(username);
+    } catch (err) {
       ctx.status = 401;
-      ctx.body = 'no auth';
+      ctx.body = err.message;
       return;
     }
 
@@ -57,7 +61,7 @@ class FollowController extends Controller {
 
       const result = await this.app.mysql.query(
         'INSERT INTO follows VALUES (null, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE status = 0',
-        [ username, followed, 0, now ]
+        [username, followed, 0, now]
       );
 
       const updateSuccess = result.affectedRows >= 1;
@@ -76,9 +80,32 @@ class FollowController extends Controller {
     }
   }
 
-  // TODO set JWT format accessToken into cookies when user login
-  hasAuth(username) {
-    return true;
+  checkAuth(username) {
+
+    var token = this.ctx.request.header['x-access-token'];
+    if (!token) {
+      throw new Error("no access_token");
+    }
+
+    // 校验 token， 解密， 验证token的可用性 ，检索里面的用户
+    try {
+      var decoded = jwt.decode(token, this.app.config.jwtTokenSecret);
+
+      if (decoded.exp <= Date.now()) {
+        throw new Error("access_token has expired");
+      }
+
+      if (username && username !== decoded.iss) {
+         throw new Error("wrong user");
+      }
+
+      return  decoded.iss;
+     
+    } catch (err) {
+      console.log("access token decode err", err);
+      throw new Error("invaid access_token");
+    }
+
   }
 
 }

@@ -38,5 +38,6 @@ module.exports = app => {
   app.router.post('/unfollow', app.controller.follow.unfollow);
 
  
+  app.router.post('/auth', app.controller.auth.auth);
 };
 
