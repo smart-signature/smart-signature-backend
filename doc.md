@@ -113,3 +113,102 @@ followed: 关注的用户
 
 请求示例: 
 curl -d "username=joetothemoon&followed=minakokojima" -X POST http://127.0.0.1:7001/unfollow
+
+
+#### Auth (请求获取 access token)
+
+* POST /auth
+* 响应状态码：200
+
+参数：
+username: 用户
+publickey: 用户签名用的公钥
+sign: 签名
+
+成功得到 access_token 后 
+在后续请求的请求头中带上access_token： req.header['x-access-token']
+
+demo:
+
+```
+const API = {
+  // 示例代码。。请随便改。。。
+   authSignature(callback) {
+
+    const account = this.getAccount();
+
+    eosClient.getAccount(account.name, (error, result) => {
+      // 获取当前权限
+      const permissions = result.permissions.find(x => x.perm_name === account.authority);
+      // 获取当前权限的public key
+      const publicKey = permissions.required_auth.keys[0].key;
+      // 需要签名的数据
+      const sign_data = `${account.name}`;
+      // 申请签名
+      ScatterJS.scatter.getArbitrarySignature(publicKey, sign_data, 'Auth').then(signature => {
+        callback(account.name, publicKey, signature);
+      }).catch(error => {
+        
+      });
+    })
+  }
+}
+
+// 1. 取得签名
+API.authSignature(function(username, publickey, sign){
+    console.log(username, publickey, sign);
+    // 2. post到服务端 获得accessToken并保存
+    auth({ username, publickey, sign}, (error, response, body) => {
+        console.log(body);
+        if(!error){
+            // 3. save accessToken 
+            const accessToken = body;
+            localStorage.setItem("ACCESS_TOKEN", accessToken);
+        }
+    })
+});
+
+// 示例代码。。请随便改。。。
+function auth({
+  username, publickey, sign
+}, callback) {
+  // const url = `${apiServer}/auth`;
+  const url = `http://localhost:7001/auth`;
+  return request({
+    uri: url,
+    rejectUnauthorized: false,
+    json: true,
+    headers: { Accept: '*/*', Authorization: "Basic bXlfYXBwOm15X3NlY3JldA==" },
+    dataType: 'json',
+    method: 'POST',
+    form: {
+      username,
+      publickey,
+      sign,
+    },
+  }, callback);
+}
+
+
+ // 4. 使用accessToken 示例。 请求修改某些和用户数据相关的api时，需要按照oauth2规范，在header里带上 accessToken， 以表示有权调用
+const accessToken = localStorage.getItem("ACCESS_TOKEN");
+request({
+    // uri: "some api url that need auth",
+    // uri: "http://localhost:7001/follow",
+    uri: "http://localhost:7001/unfollow",
+    rejectUnauthorized: false,
+    json: true,
+    headers: { Accept: '*/*', "x-access-token": accessToken },
+    dataType: 'json',
+    method: 'POST',
+    form: {
+        username:"joetothemoon",
+        followed:"tengavinwood",
+    },
+}, function(err,resp, body){
+    console.log(body);
+});
+
+
+
+```
