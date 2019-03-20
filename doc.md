@@ -21,14 +21,14 @@ curl -X GET http://127.0.0.1:7001/posts?page=2
 
 #### 获取用户信息 
     
-新增, 返回fans数和follow数 
+新增, 返回fans数和follow数 ,is_follow 是否关注
 
 * GET /user/:username
 * 响应状态码：200
 * 响应体：
 
 ```
-{"username":"minakokojima","follows":4,"fans":5}
+{"username":"minakokojima","follows":4,"fans":5, is_follow: false }
 
 ```
 
@@ -208,7 +208,6 @@ request({
 }, function(err,resp, body){
     console.log(body);
 });
-
 
 
 ```
