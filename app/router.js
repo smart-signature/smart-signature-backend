@@ -17,8 +17,8 @@ module.exports = app => {
   // 单篇文章
   router.get('/post/:hash', controller.post.post);
 
-  // 获取用户信息
-  router.get('/user/:id', controller.user.user);
+  // 获取用户信息：用户名、关注数，粉丝数
+  router.get('/user/:username', controller.user.user);
 
   // 分享
   router.post('/share', controller.share.share);
@@ -26,13 +26,21 @@ module.exports = app => {
   // 打赏
   router.post('/vote', controller.vote.vote);
 
-
-  // ipfs service
+  // ipfs service 
   // router.post('/ipfs/add', controller.ipfs.add);
   // router.post('/ipfs/addJSON', controller.ipfs.addJSON);
 
   // router.get('/ipfs/cat/:hash', controller.ipfs.cat);
   // router.get('/ipfs/catJSON/:hash', controller.ipfs.catJSON);
+
+  // follow 关注和取关动作。关注数和粉丝数在userinfo里
+  app.router.post('/follow', app.controller.follow.follow);
+  app.router.post('/unfollow', app.controller.follow.unfollow);
+
+  // auth
+  app.router.get('/home', app.controller.home.home);
+  app.router.get('/forget', app.controller.home.forget);
+  app.router.post('/remember', app.controller.home.remember);
 
 };
 

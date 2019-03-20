@@ -19,11 +19,18 @@ curl -X GET http://127.0.0.1:7001/posts
 curl -X GET http://127.0.0.1:7001/posts?page=2
 
 
-#### 获取用户信息
+#### 获取用户信息 
     
+新增, 返回fans数和follow数 
+
 * GET /user/:username
 * 响应状态码：200
 * 响应体：
+
+```
+{"username":"minakokojima","follows":4,"fans":5}
+
+```
 
 请求示例: 
 curl -X GET http://127.0.0.1:7001/user/minakokojima
@@ -75,17 +82,34 @@ curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" 
 * 响应状态码：200
 
 
-
-
 请求示例: 
 
 curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST http://127.0.0.1:7001/ipfs/add
 curl -d "data=xxxx" -X POST http://127.0.0.1:7001/ipfs/addJSON
-
 curl -X GET http://127.0.0.1:7001/ipfs/cat/QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy
-
 curl -X GET http://127.0.0.1:7001/ipfs/catJSON/QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy
-
-
  
 
+#### 关注
+
+* POST /follow
+* 响应状态码：200
+
+参数：
+username: 当前用户
+followed: 关注的用户
+
+请求示例: 
+curl -d "username=joetothemoon&followed=minakokojima" -X POST http://127.0.0.1:7001/follow
+
+#### 取消关注
+
+* POST /unfollow
+* 响应状态码：200
+
+参数：
+username: 当前用户
+followed: 关注的用户
+
+请求示例: 
+curl -d "username=joetothemoon&followed=minakokojima" -X POST http://127.0.0.1:7001/unfollow

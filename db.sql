@@ -176,11 +176,21 @@ CREATE TABLE follows(
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   username varchar(100), -- 用户
   followed varchar(100), -- 关注的人
-  status INT UNSIGNED  DEFAULT 0, 
+  status tinyint(1)  DEFAULT 1,
   create_time timestamp,
   PRIMARY KEY (id),
   UNIQUE (username, followed)
 );
+
+insert into follows values(null, "tengavinwood", "joetothemoon", 1 , now());
+insert into follows values(null, "joetothemoon", "tengavinwood", 1 , now());
+insert into follows values(null, "joetothemoon", "111111", 1 , now());
+insert into follows values(null, "joetothemoon", "222222", 1 , now());
+insert into follows values(null, "joetothemoon", "333333", 1 , now());
+insert into follows values(null, "111111", "joetothemoon", 1 , now());
+insert into follows values(null, "222222", "joetothemoon", 1 , now());
+insert into follows values(null, "333333", "joetothemoon", 1 , now());
+insert into follows values(null, "444444", "joetothemoon", 1 , now());
 
 select * from follows;
 
@@ -189,16 +199,5 @@ select count(*) from follows where username = 'joetothemoon';
 
 -- 获取某账号粉丝数 
 select count(*) from follows where followed = 'joetothemoon';
-
-insert into follows values(null, "tengavinwood", "joetothemoon", 0 , now());
-insert into follows values(null, "joetothemoon", "tengavinwood", 0 , now());
-insert into follows values(null, "joetothemoon", "111111", 0 , now());
-insert into follows values(null, "joetothemoon", "222222", 0 , now());
-insert into follows values(null, "joetothemoon", "333333", 0 , now());
-insert into follows values(null, "111111", "joetothemoon", 0 , now());
-insert into follows values(null, "222222", "joetothemoon", 0 , now());
-insert into follows values(null, "333333", "joetothemoon", 0 , now());
-insert into follows values(null, "444444", "joetothemoon", 0 , now());
-
 
 drop table follows;
