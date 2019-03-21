@@ -15,7 +15,7 @@ class PostController extends Controller {
       broadcast: true,
       sign: true,
       chainId: ctx.app.config.eos.chainId,
-      keyProvider: [ ctx.app.config.eos.keyProvider ],
+      keyProvider: [ctx.app.config.eos.keyProvider],
       httpEndpoint: ctx.app.config.eos.httpEndpoint,
     });
   }
@@ -108,8 +108,8 @@ class PostController extends Controller {
     const results = await this.app.mysql.select('posts', { // 搜索 post 表
       // where: { status: 0, author: ['author1', 'author2'] }, // WHERE 条件
       where: { status: 0 }, // WHERE 条件
-      columns: [ 'author', 'title', 'short_content', 'hash', 'create_time' ], // 要查询的表字段
-      orders: [[ 'create_time', 'desc' ]], // 排序方式
+      columns: ['author', 'title', 'short_content', 'hash', 'create_time'], // 要查询的表字段
+      orders: [['create_time', 'desc']], // 排序方式
       limit: pagesize, // 返回数据量
       offset: (page - 1) * pagesize, // 数据偏移量
     });
@@ -123,10 +123,15 @@ class PostController extends Controller {
 
     const post = await this.app.mysql.get('posts', { hash });
 
-    // TODO 阅读次数
-    // const reads = await this.app.mysql.get('reads', { hash: hash });
-
     if (post) {
+      // 阅读次数
+      const read = await this.app.mysql.query(
+        'select count(*) as num from readers where hash = ? ',
+        [hash]
+      );
+
+      post.read = read[0].num;
+
       ctx.body = post;
       ctx.status = 200;
     } else {
@@ -142,11 +147,30 @@ class PostController extends Controller {
     const hash = ctx.params.hash;
 
     const current_user = this.get_current_user() || "anonymous";
+    const now = moment().format('YYYY-MM-DD HH:mm:ss');
 
-    console.log("show..", hash, current_user);
-    
-    ctx.status = 200;
-    ctx.body = "success";
+    try {
+      const result = await this.app.mysql.insert('readers', {
+        reader: current_user,
+        hash,
+        create_time: now
+      });
+
+      const updateSuccess = result.affectedRows === 1;
+
+      if (updateSuccess) {
+        ctx.status = 200;
+      } else {
+        ctx.status = 500;
+      }
+    } catch (err) {
+      ctx.logger.error(err.sqlMessage);
+      ctx.body = {
+        msg: 'insert error' + err.sqlMessage,
+      };
+      ctx.status = 500;
+    }
+
   }
 
 }

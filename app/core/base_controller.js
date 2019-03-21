@@ -48,7 +48,6 @@ class BaseController extends Controller {
   }
 
   get_current_user() {
-    console.log("get_current_user.. ");
     var token = this.ctx.request.header['x-access-token'];
 
     if (!token) {
