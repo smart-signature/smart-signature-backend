@@ -17,6 +17,9 @@ module.exports = app => {
   // 单篇文章
   router.get('/post/:hash', controller.post.post);
 
+  // 文章阅读事件上报 
+  router.post('/post/show/:hash', controller.post.show);
+
   // 获取用户信息：用户名、关注数，粉丝数
   router.get('/user/:username', controller.user.user);
 

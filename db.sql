@@ -204,3 +204,16 @@ select count(*) from follows where username = 'joetothemoon';
 select count(*) from follows where followed = 'joetothemoon';
 
 drop table follows;
+
+
+
+-- 文章被阅读次数统计 #51 https://github.com/smart-signature/smart-signature-future/issues/51
+CREATE TABLE reads(
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  reader varchar(100), 
+  hash varchar(100), 
+  create_time timestamp,
+  PRIMARY KEY (id)
+);
+
+select count(*) as read_count from reads where hash = "xxxx"

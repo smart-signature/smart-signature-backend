@@ -1,8 +1,6 @@
 'use strict';
 
-const Controller = require('egg').Controller;
-const jwt = require('jwt-simple');
-
+const Controller = require('../core/base_controller');
 
 class UserController extends Controller {
 
@@ -47,20 +45,7 @@ class UserController extends Controller {
     ctx.status = 200;
   }
 
-  get_current_user() {
-    var token = this.ctx.request.header['x-access-token'];
-
-    if (!token) {
-      return null;
-    }
-
-    try {
-      var decoded = jwt.decode(token, this.app.config.jwtTokenSecret);
-      return decoded.iss;
-    } catch (err) {
-      return null;
-    }
-  }
+ 
 
 }
 

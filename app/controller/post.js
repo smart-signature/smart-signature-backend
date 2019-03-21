@@ -1,10 +1,11 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+const Controller = require('../core/base_controller');
 
 const EOS = require('eosjs');
 const ecc = require('eosjs-ecc');
 const moment = require('moment');
+
 
 class PostController extends Controller {
 
@@ -135,6 +136,19 @@ class PostController extends Controller {
       ctx.status = 404;
     }
   }
+
+  async show() {
+    const ctx = this.ctx;
+    const hash = ctx.params.hash;
+
+    const current_user = this.get_current_user() || "anonymous";
+
+    console.log("show..", hash, current_user);
+    
+    ctx.status = 200;
+    ctx.body = "success";
+  }
+
 }
 
 module.exports = PostController;
