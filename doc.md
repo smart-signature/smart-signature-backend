@@ -5,7 +5,7 @@
 * POST /publish
 * 响应状态码：200
 
-curl -d "author=tengavinwood&title=xxxxx&publickey=EOS8QP2Z6tApaUYPEC6hm9f1pZrSEMmZ7n5SsvjzA3VTnRXUyra9E&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy&sign=SIG_K1_KZU9PyXP8YAePjCfCcmBjGHARkvTVDjKpKvVgS6XL8o2FXTXUdhP3rqrL38dJYgJo2WNBdYubsY9LKTo47RUUE4N3ZHjZQ" -X POST http://127.0.0.1:7001/publish
+curl -d "author=tengavinwood&title=xxxxx&publickey=EOS8QP2Z6tApaUYPEC6hm9f1pZrSEMmZ7n5SsvjzA3VTnRXUyra9E&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy&sign=SIG_K1_KZU9PyXP8YAePjCfCcmBjGHARkvTVDjKpKvVgS6XL8o2FXTXUdhP3rqrL38dJYgJo2WNBdYubsY9LKTo47RUUE4N3ZHjZQ" -X POST https://api.smartsignature.io/publish
 
 
 #### 获取文章列表
@@ -14,9 +14,11 @@ curl -d "author=tengavinwood&title=xxxxx&publickey=EOS8QP2Z6tApaUYPEC6hm9f1pZrSE
 
 参数 
 page: 页数，默认第一页
+author: 作者，默认返回全部author的文章，传入author参数，则只返回指定author的文章。
 
-curl -X GET http://127.0.0.1:7001/posts
-curl -X GET http://127.0.0.1:7001/posts?page=2
+curl -X GET https://api.smartsignature.io/posts
+curl -X GET https://api.smartsignature.io/posts?page=2
+curl -X GET https://api.smartsignature.io/posts?author=minakokojima
 
 
 #### 获取用户信息 
@@ -33,7 +35,7 @@ curl -X GET http://127.0.0.1:7001/posts?page=2
 ```
 
 请求示例: 
-curl -X GET http://127.0.0.1:7001/user/minakokojima
+curl -X GET https://api.smartsignature.io/user/minakokojima
 
 #### 文章分享上报
 
@@ -45,7 +47,7 @@ user: 分享的用户
 hash: 文章的唯一hash
 
 请求示例: 
-curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST http://127.0.0.1:7001/share
+curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST https://api.smartsignature.io/share
 
 #### 文章支持上报
 
@@ -57,7 +59,7 @@ user: 分享的用户
 hash: 文章的唯一hash
 
 请求示例: 
-curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST http://127.0.0.1:7001/vote
+curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST https://api.smartsignature.io/vote
 
 
 #### IPFS add
@@ -84,10 +86,10 @@ curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" 
 
 请求示例: 
 
-curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST http://127.0.0.1:7001/ipfs/add
-curl -d "data=xxxx" -X POST http://127.0.0.1:7001/ipfs/addJSON
-curl -X GET http://127.0.0.1:7001/ipfs/cat/QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy
-curl -X GET http://127.0.0.1:7001/ipfs/catJSON/QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy
+curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST https://api.smartsignature.io/ipfs/add
+curl -d "data=xxxx" -X POST https://api.smartsignature.io/ipfs/addJSON
+curl -X GET https://api.smartsignature.io/ipfs/cat/QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy
+curl -X GET https://api.smartsignature.io/ipfs/catJSON/QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy
  
 
 #### 关注
@@ -100,7 +102,7 @@ username: 当前用户
 followed: 关注的用户
 
 请求示例: 
-curl -d "username=joetothemoon&followed=minakokojima" -X POST http://127.0.0.1:7001/follow
+curl -d "username=joetothemoon&followed=minakokojima" -X POST https://api.smartsignature.io/follow
 
 #### 取消关注
 
@@ -112,7 +114,7 @@ username: 当前用户
 followed: 关注的用户
 
 请求示例: 
-curl -d "username=joetothemoon&followed=minakokojima" -X POST http://127.0.0.1:7001/unfollow
+curl -d "username=joetothemoon&followed=minakokojima" -X POST https://api.smartsignature.io/unfollow
 
 
 #### Auth (请求获取 access token)

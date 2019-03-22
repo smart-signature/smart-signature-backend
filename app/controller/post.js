@@ -103,12 +103,20 @@ class PostController extends Controller {
   async posts() {
     const pagesize = 20;
 
-    const { page = 1, type = 'all' } = this.ctx.query;
+    const { page = 1, type = 'all', author } = this.ctx.query;
+
+    let whereOption = {
+      status: 0
+    }
+
+    if (author) {
+      whereOption.author = [author]
+    }
 
     const results = await this.app.mysql.select('posts', { // 搜索 post 表
       // where: { status: 0, author: ['author1', 'author2'] }, // WHERE 条件
-      where: { status: 0 }, // WHERE 条件
-      columns: ['author', 'title', 'short_content', 'hash', 'create_time'], // 要查询的表字段
+      where: whereOption, // WHERE 条件
+      columns: ['id', 'author', 'title', 'short_content', 'hash', 'create_time'], // 要查询的表字段
       orders: [['create_time', 'desc']], // 排序方式
       limit: pagesize, // 返回数据量
       offset: (page - 1) * pagesize, // 数据偏移量
