@@ -50,14 +50,13 @@ class UpdateContract extends Subscription {
             account: 'signature.bp',
             name: 'publish',
             authorization: [{
-              actor: 'signature.bp',
+              actor: 'kuriharachie',
               permission: 'active',
             }],
             data: {
               sign: {
                 id: post.id,
                 author: post.username || post.author,
-                // author: "signature.bp",
                 fission_factor: post.fission_factor,
                 ipfs_hash: post.hash,
                 public_key: post.public_key,

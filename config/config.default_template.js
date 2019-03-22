@@ -44,7 +44,7 @@ module.exports = appInfo => {
   config.eos = {
     httpEndpoint: 'http://eos.greymass.com',
     chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
-    keyProvider: '5KcJNWCAFCYsQvv6rTBHofsMNNpnJToAh8RJvFVk24Pi5uzNbpa',
+    keyProvider: 'a private key',
   };
 
   config.mail = {
