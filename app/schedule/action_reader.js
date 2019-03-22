@@ -77,7 +77,8 @@ class ActionReader extends Subscription {
         var sign_id = null;
 
         var type = "other";
-        const now = moment().format('YYYY-MM-DD HH:mm:ss');
+        // const now = moment().format('YYYY-MM-DD HH:mm:ss');
+        const block_time = x.block_time;
 
         // 判断是打赏转账类型
         if (act_name == "transfer" && act_account == "eosio.token") {
@@ -99,7 +100,7 @@ class ActionReader extends Subscription {
           }
         }
 
-        var sql = `INSERT INTO actions VALUES (${seq}, '${act_account}', '${act_name}', '${act_data}','${author}', '${memo}', '${amount}', '${sign_id}', '${type}', '${now}') ON DUPLICATE KEY UPDATE id='${seq}';`
+        var sql = `INSERT INTO actions VALUES (${seq}, '${act_account}', '${act_name}', '${act_data}','${author}', '${memo}', '${amount}', '${sign_id}', '${type}', '${block_time}') ON DUPLICATE KEY UPDATE id='${seq}';`
         sqls.push(sql);
 
       })
