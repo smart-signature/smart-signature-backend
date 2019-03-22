@@ -1,7 +1,7 @@
 const Subscription = require('egg').Subscription;
 const EOS = require('eosjs');
 
-class UpdateContract extends Subscription {
+class SyncPosts extends Subscription {
 
   constructor(ctx) {
     super(ctx);
@@ -16,18 +16,13 @@ class UpdateContract extends Subscription {
 
   static get schedule() {
     return {
-      interval: '10s',
+      interval: '2s',
       type: 'all',
     };
   }
 
   async subscribe() {
-
-    // this.ctx.logger.info('sync contract..');
-
-    // this.eosClient.getAccount("joetothemoon", (error, result) => {
-    //     this.ctx.logger.info('sync contract..', result);
-    // })
+    console.log("sync posts..");
 
     const results = await this.app.mysql.select('posts', {
       where: { onchain_status: 0 }, // WHERE 条件
@@ -89,10 +84,8 @@ class UpdateContract extends Subscription {
     } else {
       // this.ctx.logger.info('new posts need to sync to contract..', results.length);
     }
-
-
   }
 }
 
-module.exports = UpdateContract;
+module.exports = SyncPosts;
 

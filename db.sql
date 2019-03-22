@@ -217,3 +217,22 @@ CREATE TABLE readers (
 
 drop table  readers;
 select count(*) as read_count from reads where hash = "xxxx"
+
+-- 同步actions回来
+CREATE TABLE actions (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  act_account varchar(100),
+  act_name varchar(100),
+  act_data text,
+
+  author varchar(100),
+  memo varchar(100),
+  amount INT UNSIGNED DEFAULT 0,
+  sign_id INT UNSIGNED DEFAULT 0,
+  
+  type varchar(100),
+  create_time timestamp,
+  PRIMARY KEY (id)
+);
+
+drop table actions;
