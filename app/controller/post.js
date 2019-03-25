@@ -26,8 +26,9 @@ class PostController extends Controller {
 
     ctx.logger.info('debug info', author, title, content, publickey, sign, username);
 
-    // TODO check auth
-    // accessToken = userid + username + data + salt
+    if (fissionFactor > 2000) {
+      fissionFactor = 2000; // 最大2000
+    }
 
     // check signature
     const hash_piece1 = hash.slice(0, 12);
@@ -185,7 +186,7 @@ class PostController extends Controller {
     const ctx = this.ctx;
     const { comment = '', sign_id  } = ctx.request.body;
 
-    if(!sign_id){
+    if (!sign_id) {
       ctx.status = 500;
       ctx.body = "sign_id required";
       return;
