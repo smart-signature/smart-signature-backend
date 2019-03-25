@@ -22,7 +22,7 @@ class PostController extends Controller {
 
   async publish() {
     const ctx = this.ctx;
-    const { author = '', title = '', content = '', publickey, sign, hash, username, fission_factor = 2000 } = ctx.request.body;
+    const { author = '', title = '', content = '', publickey, sign, hash, username, fissionFactor = 2000 } = ctx.request.body;
 
     ctx.logger.info('debug info', author, title, content, publickey, sign, username);
 
@@ -67,7 +67,7 @@ class PostController extends Controller {
         public_key: publickey,
         sign,
         hash,
-        fission_factor,
+        fission_factor: fissionFactor,
         create_time: now,
       });
 
