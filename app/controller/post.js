@@ -178,8 +178,57 @@ class PostController extends Controller {
       };
       ctx.status = 500;
     }
-
   }
+
+
+  async comment() {
+    const ctx = this.ctx;
+    const { comment = '', sign_id  } = ctx.request.body;
+
+    if(!sign_id){
+      ctx.status = 500;
+      ctx.body = "sign_id required";
+      return;
+    }
+
+    const username = this.get_current_user();
+
+    try {
+      this.checkAuth(username);
+    } catch (err) {
+      ctx.status = 401;
+      ctx.body = err.message;
+      return;
+    }
+
+    const now = moment().format('YYYY-MM-DD HH:mm:ss');
+
+    try {
+      const result = await this.app.mysql.insert('comments', {
+        username,
+        sign_id,
+        comment,
+        create_time: now
+      });
+
+      const updateSuccess = result.affectedRows === 1;
+
+      if (updateSuccess) {
+        ctx.status = 200;
+      } else {
+        ctx.status = 500;
+      }
+    } catch (err) {
+      ctx.logger.error(err.sqlMessage);
+      ctx.body = {
+        msg: 'insert error' + err.sqlMessage,
+      };
+      ctx.status = 500;
+    }
+  }
+
+
+
 
 }
 

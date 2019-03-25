@@ -246,3 +246,19 @@ http://api.smartsignature.io/post/QmfNHT4eaQ8XGr1kYXZFGEGtkGkr93H8of1vKc5L16ThSK
 * signid: 指定文章
 
 获取打赏列表，支持使用user和signid进行筛选。
+
+#### 添加评论 (need access_token)
+
+* POST /comment
+* 响应状态码：200
+
+参数：
+* comment: 留言内容
+* sign_id: 文章id
+
+请求示例: 
+* curl -d "comment=this is comment&sign_id=1" -H "x-access-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2V0b3RoZW1vb24iLCJleHAiOjE1NTM3NDQ2MzM0NjF9.hLHem3JxZrJxDDwDiYrs4YLKLT7Y5g0Bz_h7bDTu5zY"  -X POST https://api.smartsignature.io/post/comment
+
+
+
+

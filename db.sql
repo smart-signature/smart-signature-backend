@@ -236,3 +236,17 @@ CREATE TABLE actions (
 );
 
 drop table actions;
+
+
+-- comments
+CREATE TABLE comments (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  username varchar(100),  
+  sign_id INT UNSIGNED DEFAULT 0,
+  comment varchar(500),  
+  create_time timestamp,
+  PRIMARY KEY (id),
+  UNIQUE (username, sign_id)
+);
+
+drop table comments;
