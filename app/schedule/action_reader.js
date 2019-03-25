@@ -17,7 +17,7 @@ class ActionReader extends Subscription {
     });
 
     this.config = {
-      startAt: 0,
+      startAt: 500,
       step: 20,
       watchAccount: "signature.bp"
     }
@@ -94,6 +94,12 @@ class ActionReader extends Subscription {
           act_data = JSON.stringify(x.action_trace.act.data);
 
           if (to === this.config.watchAccount && memo.includes("share")) {
+            type = "share";
+            author = from; // 记录打赏人
+            sign_id = memo.split(" ")[1];
+          }
+
+          if (to === this.config.watchAccount && memo.includes("support")) {
             type = "share";
             author = from; // 记录打赏人
             sign_id = memo.split(" ")[1];

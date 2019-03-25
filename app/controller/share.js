@@ -33,6 +33,35 @@ class ShareController extends Controller {
     }
   }
 
+
+  async shares() {
+    const pagesize = 20;
+
+    const { page = 1, signid , user  } = this.ctx.query;
+
+    let whereOption = {
+      type: "share"
+    }
+
+    if (user) {
+      whereOption.author = user
+    }
+
+    if (signid) {
+      whereOption.sign_id = signid
+    }
+
+    const results = await this.app.mysql.select('actions', {
+      where: whereOption, // WHERE 条件
+      columns: ['author', 'amount', 'sign_id', 'create_time'], // 要查询的表字段
+      orders: [['create_time', 'desc']], // 排序方式
+      limit: pagesize, // 返回数据量
+      offset: (page - 1) * pagesize, // 数据偏移量
+    });
+
+    this.ctx.body = results;
+  }
+
 }
 
 module.exports = ShareController;

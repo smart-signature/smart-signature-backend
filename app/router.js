@@ -25,6 +25,7 @@ module.exports = app => {
 
   // 分享
   router.post('/share', controller.share.share);
+  router.get('/shares', controller.share.shares);
 
   // 打赏
   router.post('/vote', controller.vote.vote);

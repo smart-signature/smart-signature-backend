@@ -5,20 +5,20 @@
 * POST /publish
 * 响应状态码：200
 
-curl -d "author=tengavinwood&title=xxxxx&publickey=EOS8QP2Z6tApaUYPEC6hm9f1pZrSEMmZ7n5SsvjzA3VTnRXUyra9E&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy&sign=SIG_K1_KZU9PyXP8YAePjCfCcmBjGHARkvTVDjKpKvVgS6XL8o2FXTXUdhP3rqrL38dJYgJo2WNBdYubsY9LKTo47RUUE4N3ZHjZQ" -X POST https://api.smartsignature.io/publish
+* curl -d "author=tengavinwood&title=xxxxx&publickey=EOS8QP2Z6tApaUYPEC6hm9f1pZrSEMmZ7n5SsvjzA3VTnRXUyra9E&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy&sign=SIG_K1_KZU9PyXP8YAePjCfCcmBjGHARkvTVDjKpKvVgS6XL8o2FXTXUdhP3rqrL38dJYgJo2WNBdYubsY9LKTo47RUUE4N3ZHjZQ" -X POST https://api.smartsignature.io/publish
 
 
 #### 获取文章列表
 
 * GET /posts
 
-参数 
-page: 页数，默认第一页
-author: 作者，默认返回全部author的文章，传入author参数，则只返回指定author的文章。
+* 参数 
+* page: 页数，默认第一页
+* author: 作者，默认返回全部author的文章，传入author参数，则只返回指定author的文章。
 
-curl -X GET https://api.smartsignature.io/posts
-curl -X GET https://api.smartsignature.io/posts?page=2
-curl -X GET https://api.smartsignature.io/posts?author=minakokojima
+* curl -X GET https://api.smartsignature.io/posts
+* curl -X GET https://api.smartsignature.io/posts?page=2
+* curl -X GET https://api.smartsignature.io/posts?author=minakokojima
 
 
 #### 获取用户信息 
@@ -35,7 +35,8 @@ curl -X GET https://api.smartsignature.io/posts?author=minakokojima
 ```
 
 请求示例: 
-curl -X GET https://api.smartsignature.io/user/minakokojima
+
+* curl -X GET https://api.smartsignature.io/user/minakokojima
 
 #### 文章分享上报
 
@@ -43,24 +44,25 @@ curl -X GET https://api.smartsignature.io/user/minakokojima
 * 响应状态码：200
 
 参数
-user: 分享的用户
-hash: 文章的唯一hash
+* user: 分享的用户
+* hash: 文章的唯一hash
 
 请求示例: 
-curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST https://api.smartsignature.io/share
+
+* curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST https://api.smartsignature.io/share
 
 #### 文章支持上报
 
 * POST /vote
 * 响应状态码：200
 
-参数
-user: 分享的用户
-hash: 文章的唯一hash
+参数: 
+
+* user: 分享的用户
+* hash: 文章的唯一hash
 
 请求示例: 
-curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST https://api.smartsignature.io/vote
-
+* curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST https://api.smartsignature.io/vote
 
 #### IPFS add
 
@@ -86,10 +88,10 @@ curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" 
 
 请求示例: 
 
-curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST https://api.smartsignature.io/ipfs/add
-curl -d "data=xxxx" -X POST https://api.smartsignature.io/ipfs/addJSON
-curl -X GET https://api.smartsignature.io/ipfs/cat/QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy
-curl -X GET https://api.smartsignature.io/ipfs/catJSON/QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy
+* curl -d "user=joetothemoon&hash=QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy" -X POST https://api.smartsignature.io/ipfs/add
+* curl -d "data=xxxx" -X POST https://api.smartsignature.io/ipfs/addJSON
+* curl -X GET https://api.smartsignature.io/ipfs/cat/QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy
+* curl -X GET https://api.smartsignature.io/ipfs/catJSON/QmNzMrW3J7eY6KPqXd3TLwr2Y31iga2QowzrhUPJYk2mcy
  
 
 #### 关注
@@ -98,11 +100,11 @@ curl -X GET https://api.smartsignature.io/ipfs/catJSON/QmNzMrW3J7eY6KPqXd3TLwr2Y
 * 响应状态码：200
 
 参数：
-username: 当前用户
-followed: 关注的用户
+* username: 当前用户
+* followed: 关注的用户
 
 请求示例: 
-curl -d "username=joetothemoon&followed=minakokojima" -X POST https://api.smartsignature.io/follow
+* curl -d "username=joetothemoon&followed=minakokojima" -X POST https://api.smartsignature.io/follow
 
 #### 取消关注
 
@@ -110,11 +112,11 @@ curl -d "username=joetothemoon&followed=minakokojima" -X POST https://api.smarts
 * 响应状态码：200
 
 参数：
-username: 当前用户
-followed: 关注的用户
+* username: 当前用户
+* followed: 关注的用户
 
 请求示例: 
-curl -d "username=joetothemoon&followed=minakokojima" -X POST https://api.smartsignature.io/unfollow
+* curl -d "username=joetothemoon&followed=minakokojima" -X POST https://api.smartsignature.io/unfollow
 
 
 #### Auth (请求获取 access token)
@@ -123,9 +125,9 @@ curl -d "username=joetothemoon&followed=minakokojima" -X POST https://api.smarts
 * 响应状态码：200
 
 参数：
-username: 用户
-publickey: 用户签名用的公钥
-sign: 签名
+* username: 用户
+* publickey: 用户签名用的公钥
+* sign: 签名
 
 成功得到 access_token 后 
 在后续请求的请求头中带上access_token： req.header['x-access-token']
@@ -213,3 +215,34 @@ request({
 
 
 ```
+
+#### 文章阅读上报
+
+统计阅读次数
+
+文章被阅读次数统计 #51
+
+新增 阅读次数统计的api :
+带上access_token请求，会记录读者名字：
+
+curl -H "x-access-token: your_access_token" -X POST http://api.smartsignature.io/post/show/QmfNHT4eaQ8XGr1kYXZFGEGtkGkr93H8of1vKc5L16ThSK
+
+或者直接调用，算作匿名用户：
+
+curl -X POST http://api.smartsignature.io/post/show/QmfNHT4eaQ8XGr1kYXZFGEGtkGkr93H8of1vKc5L16ThSK
+
+阅读次数字段为 read ，在获取单篇文章的返回数据里 ：
+ex：
+http://api.smartsignature.io/post/QmfNHT4eaQ8XGr1kYXZFGEGtkGkr93H8of1vKc5L16ThSK
+
+
+#### 获取打赏列表
+
+* GET /shares
+
+* 参数 :
+* page: 页数，默认第一页
+* user: 指定用户
+* signid: 指定文章
+
+获取打赏列表，支持使用user和signid进行筛选。
