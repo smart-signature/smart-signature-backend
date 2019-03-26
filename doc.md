@@ -271,4 +271,4 @@ http://api.smartsignature.io/post/QmfNHT4eaQ8XGr1kYXZFGEGtkGkr93H8of1vKc5L16ThSK
 获取支持过的文章列表，支持使用user进行筛选。
 
 请求示例: 
-* curl -X GET https://api.smartsignature.io/post/supports?user=flyovergross
+* curl -X GET https://api.smartsignature.io/supports?user=flyovergross
