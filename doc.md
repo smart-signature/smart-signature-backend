@@ -236,7 +236,7 @@ ex：
 http://api.smartsignature.io/post/QmfNHT4eaQ8XGr1kYXZFGEGtkGkr93H8of1vKc5L16ThSK
 
 
-#### 获取打赏列表
+#### 获取打赏列表(打赏队列)
 
 * GET /shares
 
@@ -260,5 +260,15 @@ http://api.smartsignature.io/post/QmfNHT4eaQ8XGr1kYXZFGEGtkGkr93H8of1vKc5L16ThSK
 * curl -d "comment=this is comment&sign_id=1" -H "x-access-token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2V0b3RoZW1vb24iLCJleHAiOjE1NTM3NDQ2MzM0NjF9.hLHem3JxZrJxDDwDiYrs4YLKLT7Y5g0Bz_h7bDTu5zY"  -X POST https://api.smartsignature.io/post/comment
 
 
+#### 获取支持过的文章列表
 
+* GET /supports
 
+* 参数 :
+* page: 页数，默认第一页
+* user: 指定用户
+
+获取支持过的文章列表，支持使用user进行筛选。
+
+请求示例: 
+* curl -X GET https://api.smartsignature.io/post/supports?user=flyovergross

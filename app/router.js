@@ -10,15 +10,16 @@ module.exports = app => {
 
   // 发布文章
   router.post('/publish', controller.post.publish);
-
   // 文章列表
   router.get('/posts', controller.post.posts);
-
+  // 打赏过的文章
+  router.get('/supports', controller.post.supports);
   // 单篇文章
   router.get('/post/:hash', controller.post.post);
 
   // 文章阅读事件上报 
   router.post('/post/show/:hash', controller.post.show);
+  // 添加评论
   router.post('/post/comment', controller.post.comment);
 
   // 获取用户信息：用户名、关注数，粉丝数
@@ -42,7 +43,7 @@ module.exports = app => {
   app.router.post('/follow', app.controller.follow.follow);
   app.router.post('/unfollow', app.controller.follow.unfollow);
 
- 
+  // 获取access token 
   app.router.post('/auth', app.controller.auth.auth);
 };
 
