@@ -37,7 +37,7 @@ class AuthController extends Controller {
     }
 
     // 3. 签名有效，生成accessToken . accessToken = username + date + secret (JWT format)
-    var expires = moment().add(3, "days").valueOf();
+    var expires = moment().add(7, "days").valueOf();
 
     var token = jwt.encode({
       iss: username,
