@@ -20,7 +20,9 @@ module.exports = app => {
   router.get('/post/:hash', controller.post.post);
   // 单篇文章（for 短链接）
   router.get('/p/:id', controller.post.p);
-
+  
+  router.get('/random', controller.post.randomArticle);
+  
   // 文章阅读事件上报 
   router.post('/post/show/:hash', controller.post.show);
   // 添加评论
